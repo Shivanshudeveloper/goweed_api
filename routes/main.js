@@ -4,6 +4,12 @@ const { v4: uuidv4 } = require('uuid');
 // Getting Module
 const Cart_Model = require('../models/Cart');
 const Users_Model = require('../models/Users');
+const Flower_Model = require('../models/Flower');
+const AddPreRolls_Model = require('../models/AddPreRolls');
+const Vapes_Model = require('../models/Vapes');
+const Extracts_Model = require('../models/Extracts');
+const Edibles_Model = require('../models/Edibles');
+const Tropicals_Model = require('../models/Tropicals');
 
 
 // TEST
@@ -182,5 +188,143 @@ router.get('/getuserdataaddress/:email', (req, res) => {
         .catch(err => res.status(500).json('Server Error'))
 
 });
+
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addflower', (req, res) => {
+    const { name, company, thc, cbd, category, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new Flower_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addprerolls', (req, res) => {
+    const { name, company, thc, cbd, category, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new AddPreRolls_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addvapes', (req, res) => {
+    const { name, company, thc, cbd, category, subcategory, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new Vapes_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        subcategory,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addextracts', (req, res) => {
+    const { name, company, thc, cbd, category, subcategory, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new Extracts_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        subcategory,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addedibles', (req, res) => {
+    const { name, company, thc, cbd, category, subcategory, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new Edibles_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        subcategory,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to add Flower
+// POST 
+router.post('/addtropicals', (req, res) => {
+    const { name, company, thc, cbd, category, subcategory, photoDownloadUrl1, price, size } = req.body;
+    const newItem = new Tropicals_Model({
+        name,
+        company,
+        thc,
+        cbd,
+        category,
+        subcategory,
+        photoDownloadUrl1,
+        price,
+        size
+    });
+    newItem.save()
+        .then(() => {
+            res.status(200).json('Item Added')
+        })
+        .catch(err => res.status(500).json(`Server Error is ${err}`))
+});
+
 
 module.exports = router;
