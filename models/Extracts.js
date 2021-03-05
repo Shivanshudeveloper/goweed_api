@@ -21,6 +21,10 @@ const extractsDataSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    subcategory: {
+        type: String,
+        required: true
+    },
     photoDownloadUrl1: {
         type: String,
         required: true

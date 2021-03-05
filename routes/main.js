@@ -327,4 +327,80 @@ router.post('/addtropicals', (req, res) => {
 });
 
 
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getflowers', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    Flower_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getprerolls', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    AddPreRolls_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/vapes', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    Vapes_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/extracts', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    Extracts_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/edibles', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    Edibles_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/tropicals', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    Tropicals_Model.find({}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
 module.exports = router;
