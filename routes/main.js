@@ -403,4 +403,446 @@ router.get('/tropicals', (req, res) => {
 });
 
 
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getflowersfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Flower_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getflowersfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        Flower_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        Flower_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getflowersfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Flower_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Flower Data
+// GET 
+router.get('/getflowersfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Flower_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Prerolls Data
+// GET 
+router.get('/getprerollsfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    AddPreRolls_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Prerolls Data
+// GET 
+router.get('/getprerollsfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        AddPreRolls_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        AddPreRolls_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Prerolls Data
+// GET 
+router.get('/getprerollsfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    AddPreRolls_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Prerolls Data
+// GET 
+router.get('/getprerollsfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    AddPreRolls_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+
+// Database CRUD Operations
+// @POST Request to GET the Vapes Data
+// GET 
+router.get('/getvapesfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Vapes_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Vapes Data
+// GET 
+router.get('/getvapesfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        Vapes_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        Vapes_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Vapes Data
+// GET 
+router.get('/getvapesfiltersubcategory/:sc', (req, res) => {
+    let { sc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Vapes_Model.find({ 'subcategory': sc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Vapes Data
+// GET 
+router.get('/getvapesfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Vapes_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Vapes Data
+// GET 
+router.get('/getvapesfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Vapes_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Extracts Data
+// GET 
+router.get('/getextractsfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Extracts_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Extracts Data
+// GET 
+router.get('/getextractsfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        Extracts_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        Extracts_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Extracts Data
+// GET 
+router.get('/getextractsfiltersubcategory/:sc', (req, res) => {
+    let { sc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Extracts_Model.find({ 'subcategory': sc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Extracts Data
+// GET 
+router.get('/getextractsfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Extracts_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Extracts Data
+// GET 
+router.get('/getextractsfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Extracts_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/getediblesfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Edibles_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/getediblesfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        Edibles_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        Edibles_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/getediblesfiltersubcategory/:sc', (req, res) => {
+    let { sc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Edibles_Model.find({ 'subcategory': sc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/getediblesfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Edibles_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/getediblesfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Edibles_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/gettropicalsfiltersize/:s', (req, res) => {
+    let { s } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Tropicals_Model.find({size: {$elemMatch: {'size': s}}}).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/gettropicalsfiltercategory/:c', (req, res) => {
+    let { c } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    if ( c === "All" ) {
+        Tropicals_Model.find({}).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    } else {
+        Tropicals_Model.find({ 'category': c }).sort({date: -1})
+            .then(data => {
+                res.status(200).json(data);
+            })
+            .catch(err => res.status(400).json(`Error: ${err}`))
+    }
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/gettropicalsfiltersubcategory/:sc', (req, res) => {
+    let { sc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Tropicals_Model.find({ 'subcategory': sc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/gettropicalsfilterthc/:thc', (req, res) => {
+    let { thc } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Tropicals_Model.find({ thc }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Edibles Data
+// GET 
+router.get('/gettropicalsfiltercbd/:cbd', (req, res) => {
+    let { cbd } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Tropicals_Model.find({ cbd }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
 module.exports = router;
