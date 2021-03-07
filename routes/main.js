@@ -10,7 +10,7 @@ const Vapes_Model = require('../models/Vapes');
 const Extracts_Model = require('../models/Extracts');
 const Edibles_Model = require('../models/Edibles');
 const Tropicals_Model = require('../models/Tropicals');
-
+const Favorite_Model = require('../models/Favorites');
 
 // TEST
 // @GET TEST
@@ -844,5 +844,61 @@ router.get('/gettropicalsfiltercbd/:cbd', (req, res) => {
         })
         .catch(err => res.status(400).json(`Error: ${err}`))
 });
+
+
+
+// Database CRUD Operations
+// @POST Request to add Favorite
+// POST
+router.post('/addtofavorite', (req, res) => {
+    const { useremail, product } = req.body;
+    Favorite_Model.countDocuments({ productId: product._id })
+    .then((count) => {
+        if (count === 0) {
+            const newFavorite = new Favorite_Model({
+                productId: product._id,
+                useremail,
+                product
+            });
+            newFavorite.save()
+                .then(() => {
+                    res.status(200).json('Added to Favorite')
+                })
+                .catch(err => res.status(500).json(`Server Error is ${err}`))
+        } else {
+            res.status(200).json('Added to Favorite')
+        }
+    })
+    .catch(err => res.status(500).json('Server Error'))
+});
+
+
+// Database CRUD Operations
+// @POST Request to GET the Item
+// GET 
+router.get('/findallfavorites/:useremail', (req, res) => {
+    const { useremail } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Favorite_Model.find({ useremail }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @GET Request to DELETE from the Favorite List
+// GET 
+router.get('/removefavorite/:documentId', (req, res) => {
+    const { documentId } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Favorite_Model.findOneAndDelete({ '_id': documentId })
+        .then(data => {
+            res.status(200).json('Removed')
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
 
 module.exports = router;
