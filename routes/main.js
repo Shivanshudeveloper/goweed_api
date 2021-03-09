@@ -11,6 +11,10 @@ const Extracts_Model = require('../models/Extracts');
 const Edibles_Model = require('../models/Edibles');
 const Tropicals_Model = require('../models/Tropicals');
 const Favorite_Model = require('../models/Favorites');
+const SuccessfullPayment_Model = require('../models/SuccessfullPayment');
+
+
+const stripe = require('stripe')('sk_test_51IQmDSLbp71n4XnI9AJa2u03XqqNh2YTPlLtiAuiOOK6lrnpj8V1RnSNbxesLdCkChISlZXMJ89gIyr8WOBwCAlh00BCFkGRAW')
 
 // TEST
 // @GET TEST
@@ -80,7 +84,7 @@ router.post('/additemtocart', (req, res) => {
 router.get('/findallthecartitems/:userId', (req, res) => {
     const { userId } = req.params;
     res.setHeader('Content-Type', 'application/json');
-    Cart_Model.find({ 'userId': userId }).sort({date: -1})
+    Cart_Model.find({ 'userId': userId, 'payment': false }).sort({date: -1})
         .then(data => {
             res.status(200).json(data);
         })
@@ -186,7 +190,6 @@ router.get('/getuserdataaddress/:email', (req, res) => {
             }
         })
         .catch(err => res.status(500).json('Server Error'))
-
 });
 
 
@@ -900,5 +903,83 @@ router.get('/removefavorite/:documentId', (req, res) => {
         .catch(err => res.status(400).json(`Error: ${err}`))
 });
 
+
+// Database CRUD Operations
+// @POST Request to the Payment
+// POST 
+router.post('/charges', async (req, res) => {
+    const {email, amount} = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100,
+        currency: 'cad',
+        // Verify your integration in this guide by including this parameter
+        metadata: {integration_check: 'accept_a_payment'},
+        receipt_email: email,
+    });
+
+    res.json({'client_secret': paymentIntent['client_secret']})
+});
+
+
+
+// Database CRUD Operations
+// @GET Request to get the orders of user
+// GET 
+router.get('/getusersdata/:email', (req, res) => {
+    const { email } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Users_Model.find({ email })
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @GET Request to get the orders of user
+// GET 
+router.post('/paymentsuccessfull', (req, res) => {
+    const { transactionId, email, fullName, phoneno, address, zipcode, userId } = req.body;
+    res.setHeader('Content-Type', 'application/json');
+    SuccessfullPayment_Model.countDocuments({ transactionId })
+    .then((count) => {
+        if (count === 0) {
+            const newSuccessfullPayment = new SuccessfullPayment_Model({
+                transactionId,
+                email,
+                fullName,
+                phoneno,
+                address,
+                zipcode
+            });
+            newSuccessfullPayment.save()
+                .then(() => {
+                    Cart_Model.updateMany({userId}, { 'payment': true }, { useFindAndModify: false })
+                        .then(() => {
+                            res.status(200).json('Users Update')
+                        })
+                        .catch(err => console.log(err))
+                })
+                .catch(err => res.status(500).json(`Server Error is ${err}`))
+        } else {
+            res.status(200).json('Added')
+        }
+    })
+    .catch(err => res.status(500).json('Server Error'))
+});
+
+// Database CRUD Operations
+// @GET Request to get the track of the order
+// GET 
+router.get('/trackorder/:userId', (req, res) => {
+    const { userId } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Cart_Model.find({ 'completed': false, 'payment': true, 'userId': userId })
+        .then(data => {
+            res.status(200).json(data)
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
 
 module.exports = router;
