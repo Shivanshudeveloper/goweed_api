@@ -54,7 +54,7 @@ router.get('/getitemdetails/:id', (req, res) => {
 // POST 
 router.post('/additemtocart', (req, res) => {
     const { productId, userId, size, product } = req.body;
-    Cart_Model.countDocuments({ 'productId': productId, 'userId': userId })
+    Cart_Model.countDocuments({ 'productId': productId, 'userId': userId, 'completed': false, 'payment': false })
     .then((count) => {
         if (count === 0) {
             const newCartItem = new Cart_Model({
@@ -981,5 +981,21 @@ router.get('/trackorder/:userId', (req, res) => {
         })
         .catch(err => res.status(400).json(`Error: ${err}`))
 });
+
+
+
+// Database CRUD Operations
+// @POST Request to GET the Item
+// GET 
+router.get('/findallrecentbuys/:userId', (req, res) => {
+    const { userId } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Cart_Model.find({ 'userId': userId, 'payment': true, 'completed': true }).sort({date: -1})
+        .then(data => {
+            res.status(200).json(data);
+        })
+        .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
 
 module.exports = router;
