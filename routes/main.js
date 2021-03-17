@@ -59,6 +59,7 @@ router.post('/additemtocart', (req, res) => {
         if (count === 0) {
             const newCartItem = new Cart_Model({
                 productId,
+                qty: 1,
                 userId,
                 size,
                 product,
@@ -103,6 +104,20 @@ router.get('/removeitemtocart/:documentId', (req, res) => {
             res.status(200).json('Removed')
         })
         .catch(err => res.status(400).json(`Error: ${err}`))
+});
+
+
+// Database CRUD Operations
+// @GET Request to DELETE the Compare List Cart Item
+// GET 
+router.get('/cartitemchangequantitycart/:documentId/:qty', (req, res) => {
+    const { documentId, qty } = req.params;
+    res.setHeader('Content-Type', 'application/json');
+    Cart_Model.findOneAndUpdate({'_id': documentId}, { qty }, { useFindAndModify: false })
+        .then(() => {
+            res.status(200).json('Users Update')
+        })
+        .catch(err => console.log(err))
 });
 
 

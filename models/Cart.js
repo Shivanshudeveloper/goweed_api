@@ -5,6 +5,10 @@ const cartsDataSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    qty: {
+        type: Number,
+        required: false
+    },
     userId: {
         type: String,
         required: true
